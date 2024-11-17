@@ -90,6 +90,7 @@ def get_review_list(bookId):
     """获取笔记"""
     params = dict(bookId=bookId, listType=11, mine=1, syncKey=0)
     r = session.get(WEREAD_REVIEW_LIST_URL, params=params)
+    print(f"--{r.json()}")
     reviews = r.json().get("reviews")
     summary = list(filter(lambda x: x.get("review").get("type") == 4, reviews))
     reviews = list(filter(lambda x: x.get("review").get("type") == 1, reviews))
@@ -195,6 +196,7 @@ def get_notebooklist():
     r = session.get(WEREAD_NOTEBOOKS_URL)
     if r.ok:
         data = r.json()
+        print(f"++{data}")
         books = data.get("books")
         books.sort(key=lambda x: x["sort"])
         return books
