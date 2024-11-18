@@ -255,6 +255,9 @@ def  get_children(bookId, chapter, summary, bookmark_list):
         if bookId.startswith("MP_WXS_"):
             for data in bookmark_list:
                 title = data.get("title", "未命名")
+                # 针对bookmark_list中含有的reviews的信息
+                if title == "未命名" and 'reviewId' in data and 'abstract' in data:
+                    title = data['refMpInfo']['title']
                 if title not in d:
                     d[title] = []
                 d[title].append(data)
